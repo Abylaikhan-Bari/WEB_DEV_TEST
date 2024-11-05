@@ -14,7 +14,7 @@ function ExpenseForm() {
 
     const transaction = {
       dateTime: date,
-      author: "User123",
+      author: "User123", // You might replace this with a real user
       sum: parseFloat(amount),
       category,
       comment,
@@ -23,7 +23,7 @@ function ExpenseForm() {
     try {
       await axios.post('http://localhost:3000/transactions', transaction);
       alert('Transaction submitted successfully!');
-      // Reset form
+      // Clear form
       setDate(new Date());
       setAmount('');
       setCategory('');
@@ -34,33 +34,49 @@ function ExpenseForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Expense Tracker</h2>
-
-      <label>Date:</label>
-      <DatePicker selected={date} onChange={(date) => setDate(date)} />
-
-      <label>Amount:</label>
-      <input
-        type="number"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        required
-      />
-
-      <label>Category:</label>
-      <select value={category} onChange={(e) => setCategory(e.target.value)} required>
-        <option value="">Select Category</option>
-        <option value="Food">Food</option>
-        <option value="Transport">Transport</option>
-        <option value="Utilities">Utilities</option>
-      </select>
-
-      <label>Comment:</label>
-      <textarea value={comment} onChange={(e) => setComment(e.target.value)} />
-
-      <button type="submit">Submit</button>
-    </form>
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Expense Tracker</h2>
+      <form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
+        <div className="mb-3">
+          <label className="form-label">Date</label>
+          <DatePicker selected={date} onChange={(date) => setDate(date)} className="form-control" />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Amount</label>
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+            className="form-control"
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Category</label>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+            className="form-select"
+          >
+            <option value="">Select Category</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Utilities">Utilities</option>
+          </select>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Comment</label>
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            className="form-control"
+            rows="3"
+          />
+        </div>
+        <button type="submit" className="btn btn-primary w-100">Submit</button>
+      </form>
+    </div>
   );
 }
 
